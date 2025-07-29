@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mind Reader 3000</title>
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="page" id="welcomePage">
+    <h1>Welcome to Mind Reader HuaHuaHua</h1>
+    <p>What’s your name, buddy?</p>
+    <input type="text" id="nameInput" placeholder="Enter your name...">
+    <button id="startBtn">Enter</button>
+  </div>
+
+
+  <div class="page hidden" id="mainPage">
+    <h1>Mind Reader 101</h1>
+    <p id="instruction">Think of a color... Don't say it. Just think it.</p>
+    <button id="readMindBtn">Read My Mind</button>
+    <div id="resultBox">
+      <p id="result"></p>
+    </div>
+    <button id="creditsBtn" class="small">Who made this?</button>
+  </div>
+
+
+  <div class="page hidden" id="creditsPage">
+    <h1>Behind the Mind</h1>
+    <p>This masterpiece was made by your girl, Aly.</p>
+    <p>All rights to chaos and confusion reserved.</p>
+    <button id="backBtn" class="small">Take me back (to the night we met)</button>
+  </div>
+
+  <script>
+    const welcomePage = document.getElementById("welcomePage");
+    const mainPage = document.getElementById("mainPage");
+    const creditsPage = document.getElementById("creditsPage");
+
+    const nameInput = document.getElementById("nameInput");
+    const startBtn = document.getElementById("startBtn");
+    const readMindBtn = document.getElementById("readMindBtn");
+    const result = document.getElementById("result");
+    const creditsBtn = document.getElementById("creditsBtn");
+    const backBtn = document.getElementById("backBtn");
+
+    let userName = "";
+
+    const responses = [
+      "Broke ka pero add to cart ka pa rin nang add to cart",
+      "Sana gumala na kami ni, aly",
+      "Iniisip mo kung aamin ka ba sa crush mo. Spoiler: hindi pa rin.",
+      "Sabi mo mag-aaral ka?",
+      "Nagpapanggap kang productive pero 2 hours ka na nakaupo diyan.",
+      "Ang utak mo ngayon: 'Matulog na lang kaya ako?'",
+      "Wala kang naiisip. Blanko.",
+      "Nag-overthink ka na naman. Chill, wala namang nagtanong.",
+      "Crush mo ‘yung isa sa group chat, aminin mo na.",
+      "Nandito ka kasi you care for me (shocks hehehe).",
+      "Ang iniisip mo? 'Paano kung bigla akong yumaman?'",
+      "Gusto mong magpahinga, pero guilt is real.",
+      "Iniisip mo kung worth it ba pumasok. Di rin ko alam.",
+      "Naisip mo na ba kung ano talaga gusto mo sa buhay? Kasi ako rin hindi.",
+      "Feeling mo wala kang progress, pero at least naligo ka (siguro).",
+      "Naisip mong mag-start na ng bagong habit. Bukas na lang ulit.",
+      "Wala kang tulog, tapos mag-iisip ka pa? Matulog ka na.",
+      "Seryoso ka ba? Iniisip mo ‘yung panaginip mo kagabi hanggang ngayon? (same I miss it)"
+    ];
+
+    function showPage(page) {
+      [welcomePage, mainPage, creditsPage].forEach(p => p.classList.add("hidden"));
+      page.classList.remove("hidden");
+    }
+
+    function typeEffect(text, el) {
+      el.textContent = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i === text.length) {
+          clearInterval(interval);
+        }
+      }, 50);
+    }
+
+    startBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      userName = nameInput.value.trim();
+      if (userName === "") {
+        alert("Tell me your name first! I can't read minds without it.");
+        return;
+      }
+      document.getElementById("instruction").textContent = `Hello, ${userName}... Think of a color.`;
+      showPage(mainPage);
+    });
+
+
+    readMindBtn.addEventListener("click", () => {
+      result.textContent = "Scanning your brainwaves huahuahua...";
+      setTimeout(() => {
+        const guess = responses[Math.floor(Math.random() * responses.length)];
+        typeEffect(guess, result);
+      }, 1500);
+    });
+
+    creditsBtn.addEventListener("click", () => {
+      showPage(creditsPage);
+    });
+
+    backBtn.addEventListener("click", () => {
+      showPage(mainPage);
+    });
+  </script>
+</body>
+
+</html>
